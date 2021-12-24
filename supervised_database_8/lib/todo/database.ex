@@ -4,6 +4,7 @@ defmodule Todo.Database do
 
   def start_link do
     File.mkdir_p!(@db_folder)
+
     children = Enum.map(1..@pool_size, &worker_spec/1)
     IO.puts("Starting Database Server")
     Supervisor.start_link(children, strategy: :one_for_one)
